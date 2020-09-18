@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "银行02 -- 储蓄账户类的完善", "银行02 -- 储蓄账户类的完善\银行02 -- 储蓄账户类的完善.vcxproj", "{3E40DED3-BA69-4ECC-9AD9-3D90B9F6D4F9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "银行03 -- 增加信用卡账户", "银行03 -- 增加信用卡账户\银行03 -- 增加信用卡账户.vcxproj", "{D2558D68-A0E9-4767-9729-B72EAF2B8436}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E40DED3-BA69-4ECC-9AD9-3D90B9F6D4F9}.Debug|x64.ActiveCfg = Debug|x64
+		{3E40DED3-BA69-4ECC-9AD9-3D90B9F6D4F9}.Debug|x64.Build.0 = Debug|x64
+		{3E40DED3-BA69-4ECC-9AD9-3D90B9F6D4F9}.Debug|x86.ActiveCfg = Debug|Win32
+		{3E40DED3-BA69-4ECC-9AD9-3D90B9F6D4F9}.Debug|x86.Build.0 = Debug|Win32
+		{3E40DED3-BA69-4ECC-9AD9-3D90B9F6D4F9}.Release|x64.ActiveCfg = Release|x64
+		{3E40DED3-BA69-4ECC-9AD9-3D90B9F6D4F9}.Release|x64.Build.0 = Release|x64
+		{3E40DED3-BA69-4ECC-9AD9-3D90B9F6D4F9}.Release|x86.ActiveCfg = Release|Win32
+		{3E40DED3-BA69-4ECC-9AD9-3D90B9F6D4F9}.Release|x86.Build.0 = Release|Win32
+		{D2558D68-A0E9-4767-9729-B72EAF2B8436}.Debug|x64.ActiveCfg = Debug|x64
+		{D2558D68-A0E9-4767-9729-B72EAF2B8436}.Debug|x64.Build.0 = Debug|x64
+		{D2558D68-A0E9-4767-9729-B72EAF2B8436}.Debug|x86.ActiveCfg = Debug|Win32
+		{D2558D68-A0E9-4767-9729-B72EAF2B8436}.Debug|x86.Build.0 = Debug|Win32
+		{D2558D68-A0E9-4767-9729-B72EAF2B8436}.Release|x64.ActiveCfg = Release|x64
+		{D2558D68-A0E9-4767-9729-B72EAF2B8436}.Release|x64.Build.0 = Release|x64
+		{D2558D68-A0E9-4767-9729-B72EAF2B8436}.Release|x86.ActiveCfg = Release|Win32
+		{D2558D68-A0E9-4767-9729-B72EAF2B8436}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {181CEDB3-0681-468C-AD1E-A6CA5E7889B5}
+	EndGlobalSection
+EndGlobal
