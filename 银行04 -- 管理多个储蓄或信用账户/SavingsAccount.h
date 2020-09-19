@@ -9,7 +9,11 @@ private:
     double rate;
 
 public:
-    SavingsAccount(Date date, string id, double rate) :acc(date), Account(id), rate(rate) {};
+    SavingsAccount(Date date, string id, double rate) :acc(date), Account(id), rate(rate) 
+    {
+        date.show();
+        cout << "\t#" << getId() << " created" << endl;
+    };
     
     double getRate() { return rate; }
     
@@ -17,6 +21,6 @@ public:
     virtual void deposit(Date date, double amount, string desc);
     virtual void withdraw(Date date, double amount, string desc);
     virtual void settle(const Date& date);
-    // virtual void show();
+    virtual void show();
 };
 

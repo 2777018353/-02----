@@ -8,15 +8,21 @@ private:
 	int month;
 	int day;
 	int totalDays;
+
+	int monthDay[13] = { 0,31,28,31,30,31,30,31,31,30,31,30,31 };
+
 public:
-	Date() :year(0), month(0), day(0) {};
-	Date(int year, int month, int day);
+	Date() :year(0), month(0), day(0) { totalDays = 0; };
+	Date(int year, int month, int day) :year(year), month(month), day(day)
+	{
+		totalDays = 0;
+	}
 
 	// get 方法
 	int getYear() const { return year; }
 	int getMonth() const { return month; }
 	int getDay() const { return day; }
-	int getMaxDay() const { return totalDays; }	
+	int getMaxDay() const;
 
 	// 判断是否是闰年
 	static bool isLeapYear(int year) {return (year % 4 == 0 && year % 100 != 0 || year % 400 == 0);}

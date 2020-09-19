@@ -22,7 +22,7 @@ void SavingsAccount::withdraw(Date date, double amount, string desc)
 {
 	acc.getAccumulation(date);	// 累积者更新余额累计
 	amount = floor(amount * 100 + 0.5) / 100;//保留小数点后两位
-	setBalance(getBalance() - amount);	// 更新余额
+	setBalance(-amount);	// 更新余额
 	acc.setValue(getBalance());	// 更新累计者本金
 	total -= amount;
 	date.show();
@@ -32,18 +32,26 @@ void SavingsAccount::withdraw(Date date, double amount, string desc)
 // 结算
 void SavingsAccount::settle(const Date& date)
 {
-	double interest;
-	if (Date::isLeapYear(date.getYear() - 1))
+	if (date.getMonth() == 1 && date.getDay() == 1)
 	{
-		interest = acc.accumulate(date) * getRate() / 366;
+		double interest;
+		if (Date::isLeapYear(date.getYear() - 1))
+		{
+			interest = acc.accumulate(date) * getRate() / 366;
+		}
+		else
+		{
+			interest = acc.accumulate(date) * getRate() / 365;
+		}
+		if (interest != 0)
+		{
+			record(date, interest);
+		}
+		acc.reset();
 	}
-	else
-	{
-		interest = acc.accumulate(date) * getRate() / 365;
-	}
-	if (interest != 0)
-	{
-		record(date, interest);
-	}
-	acc.reset();
+}
+
+void SavingsAccount::show()
+{
+
 }

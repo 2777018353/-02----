@@ -11,7 +11,7 @@ private:
 	
 public:
 	// 构造函数(参数 id)
-	Account(string id) {};
+	Account(string id) :id(id) { balance = 0; };
 
 	// get方法
 	string getId() { return id; }
@@ -24,7 +24,7 @@ public:
 	virtual void deposit(Date date, double amount, string desc) = 0;
 	virtual void withdraw(Date date, double amount, string desc) = 0;
 	virtual void settle(const Date& date) = 0;
-	void show();
+	virtual void show();
 
 	static double getTotal() { return total; }
 };

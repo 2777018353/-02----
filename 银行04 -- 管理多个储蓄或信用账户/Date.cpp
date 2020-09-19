@@ -1,14 +1,10 @@
 #include "Date.h"
 
-Date::Date(int year, int month, int day):year(year), month(month), day(day)
-{
-	totalDays = 0;
-}
-
 int Date::distance(Date date) const
 {
 	int days_count = 0;
 	int m[13] = { 0,31,28,31,30,31,30,31,31,30,31,30,31 };
+
 	// 日期在同一年
 	if (date.year - year == 0)
 	{
@@ -72,4 +68,14 @@ int Date::distance(Date date) const
 		days_count += date.day;
 		return days_count;
 	}
+}
+
+
+int Date::getMaxDay() const
+{
+	if (month == 2 && isLeapYear(year))
+	{
+		return 29;
+	}
+	return monthDay[month];
 }
