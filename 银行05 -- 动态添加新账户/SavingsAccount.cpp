@@ -55,5 +55,5 @@ void SavingsAccount::settle(const Date& date)
 
 void SavingsAccount::show()
 {
-
+	cout << getId() << '\t' << "Balance: " << getBalance();
 }

@@ -7,6 +7,8 @@ void Account::show()
 	cout << id << "\tBalance: " << balance;
 }
 
+multimap<Date, AccountRecord> recordMap;
+
 void Account::query(Date start, Date end)
 {
 	for (auto key : recordMap)

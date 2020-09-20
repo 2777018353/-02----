@@ -53,4 +53,4 @@ public:
 	void show();
 };
 
-static multimap<Date, AccountRecord> recordMap;
+extern multimap<Date, AccountRecord> recordMap;
