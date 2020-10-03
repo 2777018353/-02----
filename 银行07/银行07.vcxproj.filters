@@ -36,6 +36,9 @@
     <ClCompile Include="RuntimeError.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Login.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h">
@@ -56,8 +59,12 @@
     <ClInclude Include="RuntimeError.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Login.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="commands.txt" />
+    <Text Include="Account.txt" />
   </ItemGroup>
 </Project>

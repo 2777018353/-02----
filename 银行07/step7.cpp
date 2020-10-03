@@ -14,6 +14,8 @@
 
 #include "RuntimeError.h"
 
+#include "Login.h"
+
 using namespace std;
 
 
@@ -31,6 +33,10 @@ int main() {
 	Date date(2008, 11, 1);//起始日期
 
 	vector<Account*> accounts;//创建账户数组，元素个数为0
+
+	Login login;
+
+	login.Init();
 
 	ofstream text("commands.txt", ios::app);
 

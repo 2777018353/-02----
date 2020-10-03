@@ -143,6 +143,7 @@
     <ClCompile Include="Accumulator.cpp" />
     <ClCompile Include="CreditAccount.cpp" />
     <ClCompile Include="Date.cpp" />
+    <ClCompile Include="Login.cpp" />
     <ClCompile Include="RuntimeError.cpp" />
     <ClCompile Include="SavingsAccount.cpp" />
     <ClCompile Include="step7.cpp" />
@@ -152,10 +153,12 @@
     <ClInclude Include="Accumulator.h" />
     <ClInclude Include="CreditAccount.h" />
     <ClInclude Include="Date.h" />
+    <ClInclude Include="Login.h" />
     <ClInclude Include="RuntimeError.h" />
     <ClInclude Include="SavingsAccount.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Account.txt" />
     <Text Include="commands.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
