@@ -24,7 +24,7 @@ struct deleter {
 
 };
 
-void restore(Date date, vector<Account*> accounts);
+void restore(Date date, vector<Account*>& accounts);
 
 int main() {
 
@@ -38,7 +38,9 @@ int main() {
 
 	cout << "(a)add account (d)deposit (w)withdraw (s)show (c)change day (n)next month (q)query (e)exit" << endl;
 
-	char cmd;
+	char cmd = 0;
+
+	vector<char> commands{ 'a', 'd', 'w', 's', 'c', 'n', 'q' };
 
 	do {
 
@@ -60,14 +62,38 @@ int main() {
 
 		Date date1, date2;
 
+		string command;
 
+		cin >> command;
 
-		cin >> cmd;
+		if (command.size() == 1)
+		{
+			cmd = command[0];
+		}
+		else
+		{
+			RuntimeError::Error(INPUTERRORCOMMAND);
+			continue;
+		}
 
 		// 如果还未停止输入
 		if (cmd != 'e')
 		{
-			text << cmd << ' ';
+			vector<char>::iterator c(commands.begin());
+			for (; c != commands.end(); c++)
+			{
+				if (*c == cmd)
+				{
+					text << cmd << ' ';
+					break;
+				}
+			}
+			if (c == commands.end())
+			{
+				RuntimeError::Error(INPUTNOCOMMAND);
+				break;
+			}
+
 		}
 
 		switch (cmd) {
@@ -75,27 +101,36 @@ int main() {
 		case 'a'://增加账户
 
 			cin >> type >> id;
-			text << type << ' ' << id << ' ';
+			if (type == 's' || type == 'c')
+			{
+				text << type << ' ' << id << ' ';
 
-			if (type == 's') {
+				if (type == 's') {
 
-				cin >> rate;
-				text << rate << '\n' << endl;
+					cin >> rate;
+					text << rate << '\n' << endl;
 
-				account = new SavingsAccount(date, id, rate);
+					account = new SavingsAccount(date, id, rate);
 
+				}
+
+				else {
+
+					cin >> credit >> rate >> fee;
+					text << credit << ' ' << rate << ' ' << fee << '\n' << endl;
+
+					account = new CreditAccount(date, id, credit, rate, fee);
+
+				}
+
+				accounts.push_back(account);
+			}
+			else
+			{
+				RuntimeError::Error(CREATEACCOUNTERROR);
+				continue;
 			}
 
-			else {
-
-				cin >> credit >> rate >> fee;
-				text << credit << ' ' << rate << ' ' << fee << '\n' << endl;
-
-				account = new CreditAccount(date, id, credit, rate, fee);
-
-			}
-
-			accounts.push_back(account);
 
 			break;
 
@@ -103,8 +138,18 @@ int main() {
 
 			cin >> index >> amount;
 
+			if (index >= accounts.size())
+			{
+				RuntimeError::Error(ACCOUNTNOEXIST);
+				continue;
+			}
+			if (amount < 0)
+			{
+				RuntimeError::Error(DEPOSITERROR);
+			}
 
 			getline(cin, desc);
+
 			text << desc << '\n' << endl;
 
 			accounts[index]->deposit(date, amount, desc);
@@ -114,12 +159,25 @@ int main() {
 		case 'w'://取出现金
 
 			cin >> index >> amount;
-			text << index << ' ' << amount << ' ';
+
+			if (index >= accounts.size())
+			{
+				RuntimeError::Error(ACCOUNTNOEXIST);
+				continue;
+			}
+			if (amount <= 0)
+			{
+				RuntimeError::Error(WITHDRAWERROR);
+				continue;
+			}
 
 			getline(cin, desc);
-			text << desc << '\n' << endl;
 
-			accounts[index]->withdraw(date, amount, desc);
+			// 取钱成功
+			if (accounts[index]->withdraw(date, amount, desc) == true)
+			{
+				text << index << ' ' << amount << ' ' << desc << '\n' << endl;
+			}
 
 			break;
 
@@ -210,7 +268,7 @@ int main() {
 
 }
 
-void restore(Date date, vector<Account*> accounts)
+void restore(Date date, vector<Account*>& accounts)
 {
 	ifstream text("commands.txt");
 

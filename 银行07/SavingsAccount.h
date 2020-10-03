@@ -19,7 +19,7 @@ public:
     
     virtual void record(Date date, double amount, string desc = "interest");
     virtual void deposit(Date date, double amount, string desc);
-    virtual void withdraw(Date date, double amount, string desc);
+    virtual bool withdraw(Date date, double amount, string desc);
     virtual void settle(const Date& date);
     virtual void show();
 };

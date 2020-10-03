@@ -25,10 +25,16 @@ void CreditAccount::deposit(Date date, double amount, string desc)
 	cout << "\t#" << getId() << "\t" << amount << "\t" << getBalance() << '\t' << desc << endl;
 }
 
-// 取款
-void CreditAccount::withdraw(Date date, double amount, string desc)
+// 取款 成功返回true 失败返回false
+bool CreditAccount::withdraw(Date date, double amount, string desc)
 {
+	if (amount > getBalance() + credit)
+	{
+		RuntimeError::Error(WITHDRAWOVERBALANCE);
+		return false;
+	}
 	record(date, amount, desc);
+	return true;
 }
 
 // 结算

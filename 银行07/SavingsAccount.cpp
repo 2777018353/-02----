@@ -19,8 +19,13 @@ void SavingsAccount::deposit(Date date, double amount, string desc)
 }
 
 // 取款
-void SavingsAccount::withdraw(Date date, double amount, string desc)
+bool SavingsAccount::withdraw(Date date, double amount, string desc)
 {
+	if (amount > getBalance())
+	{
+		RuntimeError::Error(WITHDRAWOVERBALANCE);
+		return false;
+	}
 	acc.getAccumulation(date);	// 累积者更新余额累计
 	amount = floor(amount * 100 + 0.5) / 100;//保留小数点后两位
 	setBalance(-amount);	// 更新余额
@@ -29,6 +34,7 @@ void SavingsAccount::withdraw(Date date, double amount, string desc)
 	date.show();
 	recordMap.insert(make_pair(date, AccountRecord(date, this, -amount, getBalance(), desc)));
 	cout << "\t#" << getId() << "\t" << -amount << "\t" << getBalance() << '\t' << desc << endl;
+	return true;
 }
 
 // 结算

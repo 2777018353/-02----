@@ -1,5 +1,6 @@
 #pragma once
 #include "Date.h"
+#include "RuntimeError.h"
 #include <string>
 #include <math.h>
 #include <map>
@@ -31,7 +32,7 @@ public:
 
 	virtual void record(Date date, double amount, string desc = "interest") = 0;
 	virtual void deposit(Date date, double amount, string desc) = 0;
-	virtual void withdraw(Date date, double amount, string desc) = 0;
+	virtual bool withdraw(Date date, double amount, string desc) = 0;
 	virtual void settle(const Date& date) = 0;
 	virtual void show();
 
