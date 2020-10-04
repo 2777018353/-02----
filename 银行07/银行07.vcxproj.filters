@@ -64,7 +64,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="commands.txt" />
     <Text Include="Account.txt" />
+    <Text Include="wan_commands.txt" />
+    <Text Include="wzy_commands.txt" />
   </ItemGroup>
 </Project>

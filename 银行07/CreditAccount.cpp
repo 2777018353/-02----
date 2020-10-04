@@ -79,3 +79,13 @@ void CreditAccount::show()
 	}
 	cout << getId() << "\tBalance: " << getBalance() << "\tAvailable credit:" << temp_credit;
 }
+
+// »¹¿îÌáÐÑ
+void CreditAccount::RepaymentReminder()
+{
+	if (getBalance() < 0)
+	{
+		cout << "PAY ATTENTION! " << getId() << " need to repay " << -getBalance() << "$." << endl;
+	}
+	return;
+}

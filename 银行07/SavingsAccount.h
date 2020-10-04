@@ -22,5 +22,6 @@ public:
     virtual bool withdraw(Date date, double amount, string desc);
     virtual void settle(const Date& date);
     virtual void show();
+    virtual void RepaymentReminder();
 };
 

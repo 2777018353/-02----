@@ -16,6 +16,10 @@ private:
 
 public:
 	Login() :user_name(""), password(""), iter(account_info.begin()) {};
+
+	// get·½·¨
+	string getUserName() { return user_name; }
+
 	void Init();
 	bool Signin();
 	void Register();

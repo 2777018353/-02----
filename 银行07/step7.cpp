@@ -28,7 +28,11 @@ struct deleter {
 
 };
 
-void restore(Date date, vector<Account*>& accounts);
+// 恢复历史记录
+void restore(string user_info, Date date, vector<Account*>& accounts);
+
+// 当前月账户统计
+void AccountStatistics(Account* account);
 
 int main() {
 
@@ -46,9 +50,22 @@ int main() {
 
 	system("cls");
 
-	ofstream text("commands.txt", ios::app);
+	string user_info = login.getUserName() + "_commands.txt";
 
-	restore(date, accounts);
+	ofstream text(user_info, ios::app);
+
+	restore(user_info, date, accounts);
+
+	cout << endl;
+	
+	for (auto account : accounts)
+	{
+		AccountStatistics(account);
+
+		account->RepaymentReminder();
+
+		cout << endl;
+	}
 
 	cout << "(a)add account (d)deposit (w)withdraw (s)show (c)change day (n)next month (q)query (e)exit" << endl;
 
@@ -273,18 +290,15 @@ int main() {
 	} while (cmd != 'e');
 
 
-
-
-
 	for_each(accounts.begin(), accounts.end(), deleter());
 
 	return 0;
 
 }
 
-void restore(Date date, vector<Account*>& accounts)
+void restore(string user_info, Date date, vector<Account*>& accounts)
 {
-	ifstream text("commands.txt");
+	ifstream text(user_info);
 
 	char cmd;
 
@@ -403,4 +417,45 @@ void restore(Date date, vector<Account*>& accounts)
 		}
 
 	}
+}
+
+void AccountStatistics(Account* account)
+{
+	multimap<Date, AccountRecord> temp;
+
+	// 在该账号中找到该账户所有的操作
+	for (auto record : recordMap)
+	{
+		if (record.second.getAccount() == account)
+		{
+			temp.insert(record);
+		}
+	}
+
+	multimap<Date, AccountRecord>::iterator iter(--temp.end());//最后一次操作
+	Date lastDate = iter->second.getDate();
+
+	int year = lastDate.getYear();
+	int month = lastDate.getMonth();
+
+	double income = 0;
+	double expenditure = 0;
+
+	for (auto record : temp)
+	{
+		if (Date(year, month, 0) < record.second.getDate() || Date(year, month, 32) < record.second.getDate())
+		{
+			double amount = record.second.getAmount();
+			if (amount >= 0)
+			{
+				income += amount;
+			}
+			else
+			{
+				expenditure -= amount;
+			}
+		}
+	}
+
+	cout << account->getId() << "'s statistics for this month: " << '\n' << "income: " << income << "\texpenditure: " << expenditure << endl;
 }

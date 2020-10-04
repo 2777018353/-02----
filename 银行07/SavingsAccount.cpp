@@ -63,3 +63,8 @@ void SavingsAccount::show()
 {
 	cout << getId() << '\t' << "Balance: " << getBalance();
 }
+
+void SavingsAccount::RepaymentReminder()
+{
+	return;
+}

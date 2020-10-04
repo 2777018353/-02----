@@ -28,5 +28,6 @@ public:
 	virtual void settle(const Date& date);
 	virtual void show();
 	void settleFee(Date date);
+	virtual void RepaymentReminder();
 };
 

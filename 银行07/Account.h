@@ -35,6 +35,7 @@ public:
 	virtual bool withdraw(Date date, double amount, string desc) = 0;
 	virtual void settle(const Date& date) = 0;
 	virtual void show();
+	virtual void RepaymentReminder() = 0;
 
 	static double getTotal() { return total; }
 };
@@ -51,6 +52,9 @@ private:
 public:
 	AccountRecord(Date date, Account* account, double amount, double balance, std::string desc);
 
+	Account* getAccount() { return account; }
+	Date getDate() { return date; }
+	double getAmount() { return amount; }
 	void show();
 };
 
