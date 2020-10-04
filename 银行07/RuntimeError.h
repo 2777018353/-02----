@@ -17,6 +17,8 @@
 								  
 #define ACCOUNTNOEXIST		10	  // 账户不存在
 
+#define USERNOMATCHPASSWORD	11	  // 账号密码不匹配
+
 #include <iostream>
 #include <stdexcept>
 using namespace std;

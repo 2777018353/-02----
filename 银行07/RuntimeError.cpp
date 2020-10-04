@@ -37,6 +37,9 @@ void RuntimeError::Error(int error_type)
 	case CREATEACCOUNTERROR:
 		cout << "We only provide SavingsAccount(s) or CreditAccount(c) service." << endl;
 		break;
+	case USERNOMATCHPASSWORD:
+		cout << "User name and password do not match." << endl;
+		break;
 	default:
 		break;
 	}

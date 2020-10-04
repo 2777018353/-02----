@@ -8,6 +8,8 @@
 
 #include <fstream>
 
+#include <Windows.h>
+
 #include "CreditAccount.h"
 
 #include "SavingsAccount.h"
@@ -37,6 +39,12 @@ int main() {
 	Login login;
 
 	login.Init();
+
+	cout << "Welcome to you!" << endl;
+
+	Sleep(1000);
+
+	system("cls");
 
 	ofstream text("commands.txt", ios::app);
 
@@ -144,7 +152,7 @@ int main() {
 
 			cin >> index >> amount;
 
-			if (index >= accounts.size())
+			if ((unsigned)index >= accounts.size())
 			{
 				RuntimeError::Error(ACCOUNTNOEXIST);
 				continue;
@@ -166,7 +174,7 @@ int main() {
 
 			cin >> index >> amount;
 
-			if (index >= accounts.size())
+			if ((unsigned)index >= accounts.size())
 			{
 				RuntimeError::Error(ACCOUNTNOEXIST);
 				continue;

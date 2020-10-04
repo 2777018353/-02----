@@ -2,11 +2,12 @@
 
 void Login::Init()
 {
+	ReadInfo();
 	cout << "Please login(l) or register(r).\tcommand>";
 	string command;
 	char cmd;
 	cin >> command;
-	
+
 	while (command.size() != 1)
 	{
 		RuntimeError::Error(INPUTERRORCOMMAND);
@@ -23,7 +24,12 @@ void Login::Init()
 	switch (cmd)
 	{
 	case 'l':
-		Signin();
+		while (!Signin()) 
+		{
+			RuntimeError::Error(USERNOMATCHPASSWORD);
+			user_name = "";
+			password = "";
+		}
 		break;
 	case 'r':
 		Register();
@@ -33,20 +39,29 @@ void Login::Init()
 	}
 }
 
-void Login::Signin()
+bool Login::Signin()
 {
-	string user_name;
-	string password;
 	cout << "Please input your user name:\t";
 	cin >> user_name;
 	cout << "Please input your password:\t";
-	password = HidePassword();
-	cout << password;
+	HidePassword();
+	iter = account_info.find(user_name);
+	if (iter == account_info.end() || iter->second != password)
+	{
+		return false;
+	}
+	return true;
 }
 
 void Login::Register()
 {
-
+	cout << "Please input your user name:\t";
+	cin >> user_name;
+	cout << "Please input your password:\t";
+	HidePassword();
+	ofstream accounts("Account.txt", ios::app);
+	accounts << user_name << ' ' << password << '\n' << endl;
+	accounts.close();
 }
 
 void Login::ReadInfo()
@@ -59,29 +74,36 @@ void Login::ReadInfo()
 		accounts >> user_name >> password;
 		account_info.insert(make_pair(user_name, password));
 	}
+	accounts.close();
 }
 
-string Login::HidePassword()
+void Login::HidePassword()
 {
-	char password[16];
 	char c;
-	int cnt = 0;
-	while ((c = _getch() != '\r'))
+	while (true)
 	{
-		if (cnt < sizeof(password) / sizeof(char))
+		c = _getch();
+		if (c != char(13))
 		{
-			password[cnt++] = c;
-			putchar('*');
+			switch (c)
+			{
+			case 8:
+				if (password.size() != 0)
+				{
+					cout << "\b \b";
+					password = password.substr(0, password.length() - 1);
+				}
+				break;
+			default:
+				cout << "*";
+				password += c;
+				break;
+			}
 		}
-		else if (cnt > 0 && c == '\b')
+		else
 		{
-			cnt--;
-			putchar('\b');
-			putchar(' ');
-			putchar('\b');
+			break;
 		}
 	}
-	printf("\n");
-	password[cnt] = '\0';
-	return password;
+	cout << endl;
 }
