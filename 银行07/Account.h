@@ -4,6 +4,8 @@
 #include <string>
 #include <math.h>
 #include <map>
+#include <vector>
+#include <algorithm>
 
 extern double total;
 

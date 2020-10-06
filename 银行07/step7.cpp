@@ -284,7 +284,7 @@ int run() {
 				continue;
 			}
 
-			if (date1 < date2)
+			if (date2 < date1)
 			{
 				RuntimeError::Error(DATEORDERERROR);
 

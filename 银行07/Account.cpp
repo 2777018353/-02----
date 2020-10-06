@@ -11,21 +11,21 @@ multimap<Date, AccountRecord> recordMap;
 
 typedef pair<Date, AccountRecord> RECORD;
 
-struct cmp
+bool cmp(pair<Date, AccountRecord>& a, pair<Date, AccountRecord>& b)
 {
-	bool operator()(RECORD const & a, RECORD const & b) const
+	if (abs(a.second.getAmount()) > abs(b.second.getAmount()))
 	{
-		if (a.second.amount < b.second.amount)
-		{
-			return true;
-		}
-		else if (a.second.amount == b.second.amount)
-		{
-			return a.first < b.first;
-		}
+		return true;
+	}
+	else if (a.second.getAmount() == b.second.getAmount())
+	{
+		return a.second.getDate() < b.second.getDate();
+	}
+	else
+	{
 		return false;
 	}
-};
+}
 
 void Account::QuaryByDate(Date start, Date end)
 {
@@ -40,14 +40,15 @@ void Account::QuaryByDate(Date start, Date end)
 
 void Account::QueryByAmount(Date start, Date end)
 {
-	multimap<Date, AccountRecord, cmp> temp;
+	vector<pair<Date, AccountRecord>> temp;
 	for (auto record : recordMap)
 	{
 		if (start < record.first && record.first < end)
 		{
-			temp.insert(record);
+			temp.push_back(pair<Date, AccountRecord>(record.first, record.second));
 		}
 	}
+	sort(temp.begin(), temp.end(), cmp);
 	for (auto record : temp)
 	{
 		record.second.show();
