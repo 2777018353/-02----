@@ -34,7 +34,7 @@ void restore(string user_info, Date date, vector<Account*>& accounts);
 // 当前月账户统计
 void AccountStatistics(Account* account);
 
-int main() {
+int run() {
 
 	Date date(2008, 11, 1);//起始日期
 
@@ -42,11 +42,15 @@ int main() {
 
 	Login login;
 
-	login.Init();
+	if (login.Init() == 0)
+	{
+		cout << "Thanks for your using!" << endl;
+		return 0;
+	}
 
-	cout << "Welcome to you!" << endl;
+	cout << "Welcome to you! Loading..." << endl;
 
-	Sleep(1000);
+	Sleep(800);
 
 	system("cls");
 
@@ -57,7 +61,7 @@ int main() {
 	restore(user_info, date, accounts);
 
 	cout << endl;
-	
+
 	for (auto account : accounts)
 	{
 		AccountStatistics(account);
@@ -181,7 +185,7 @@ int main() {
 
 			getline(cin, desc);
 
-			text << desc << '\n' << endl;
+			text << amount << desc << '\n' << endl;
 
 			accounts[index]->deposit(date, amount, desc);
 
@@ -265,6 +269,10 @@ int main() {
 
 		case 'q'://查询一段时间内的账目
 
+			char query_way;	// 查询方式 t: 按时间排序 a 按交易金额大小排序
+
+			cin >> query_way;
+
 			date1 = Date::read();
 
 			date2 = Date::read();
@@ -272,18 +280,35 @@ int main() {
 			if (date1.getYear() == -1 || date2.getYear() == -1)
 			{
 				RuntimeError::Error(DATEINPUTINVAILD);
+
 				continue;
 			}
 
 			if (date1 < date2)
 			{
 				RuntimeError::Error(DATEORDERERROR);
+
 				continue;
 			}
 
-			Account::query(date1, date2);
+			if (query_way == 't')	// 按时间查询
+			{
+				Account::QuaryByDate(date1, date2);
 
-			break;
+				break;
+			}
+			else if (query_way == 'a')	// 按交易金额从大到小查询
+			{
+				Account::QueryByAmount(date1, date2);
+
+				break;
+			}
+			else
+			{
+				RuntimeError::Error(INPUTNOCOMMAND);
+
+				break;
+			}
 
 		}
 
@@ -292,7 +317,7 @@ int main() {
 
 	for_each(accounts.begin(), accounts.end(), deleter());
 
-	return 0;
+	return 1;
 
 }
 
@@ -410,7 +435,7 @@ void restore(string user_info, Date date, vector<Account*>& accounts)
 
 			date2 = Date::read();
 
-			Account::query(date1, date2);
+			Account::QuaryByDate(date1, date2);
 
 			break;
 
@@ -423,39 +448,51 @@ void AccountStatistics(Account* account)
 {
 	multimap<Date, AccountRecord> temp;
 
-	// 在该账号中找到该账户所有的操作
-	for (auto record : recordMap)
+	// 如果记录不为空, 在该账号中找到该账户所有的操作
+	if (recordMap.size() != 0)
 	{
-		if (record.second.getAccount() == account)
+		for (auto record : recordMap)
 		{
-			temp.insert(record);
-		}
-	}
-
-	multimap<Date, AccountRecord>::iterator iter(--temp.end());//最后一次操作
-	Date lastDate = iter->second.getDate();
-
-	int year = lastDate.getYear();
-	int month = lastDate.getMonth();
-
-	double income = 0;
-	double expenditure = 0;
-
-	for (auto record : temp)
-	{
-		if (Date(year, month, 0) < record.second.getDate() || Date(year, month, 32) < record.second.getDate())
-		{
-			double amount = record.second.getAmount();
-			if (amount >= 0)
+			if (record.second.getAccount() == account)
 			{
-				income += amount;
-			}
-			else
-			{
-				expenditure -= amount;
+				temp.insert(record);
 			}
 		}
-	}
+		multimap<Date, AccountRecord>::iterator iter(--temp.end());//最后一次操作
+		Date lastDate = iter->second.getDate();
 
-	cout << account->getId() << "'s statistics for this month: " << '\n' << "income: " << income << "\texpenditure: " << expenditure << endl;
+		int year = lastDate.getYear();
+		int month = lastDate.getMonth();
+
+		double income = 0;
+		double expenditure = 0;
+
+		for (auto record : temp)
+		{
+			if (Date(year, month, 0) < record.second.getDate() || Date(year, month, 32) < record.second.getDate())
+			{
+				double amount = record.second.getAmount();
+				if (amount >= 0)
+				{
+					income += amount;
+				}
+				else
+				{
+					expenditure -= amount;
+				}
+			}
+		}
+
+		cout << account->getId() << "'s statistics for this month: " << '\n' << "income: " << income << "\texpenditure: " << expenditure << endl;
+	}
+}
+
+int main()
+{
+	while (run() == 1)
+	{
+		cout << "Hope to see you again!" << endl;
+		Sleep(800);
+		system("cls");
+	}
 }

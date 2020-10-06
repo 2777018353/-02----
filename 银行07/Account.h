@@ -28,7 +28,9 @@ public:
 	void setBalance(double amount) { balance += amount; }
 
 	// 在指定时间段内查询
-	static void query(Date start, Date end);
+	static void QuaryByDate(Date start, Date end);
+	// 在指定时间段内按金额大小查询
+	static void QueryByAmount(Date start, Date end);
 
 	virtual void record(Date date, double amount, string desc = "interest") = 0;
 	virtual void deposit(Date date, double amount, string desc) = 0;
@@ -42,7 +44,7 @@ public:
 
 class AccountRecord				// 账目记录
 {
-private:
+public:
 	Date date;					// 日期
 	Account* account;			// 账户
 	double amount;				// 存入或取出的金额

@@ -9,14 +9,48 @@ void Account::show()
 
 multimap<Date, AccountRecord> recordMap;
 
-void Account::query(Date start, Date end)
+typedef pair<Date, AccountRecord> RECORD;
+
+struct cmp
 {
-	for (auto key : recordMap)
+	bool operator()(RECORD const & a, RECORD const & b) const
 	{
-		if (start < key.first && key.first < end)
+		if (a.second.amount < b.second.amount)
 		{
-			key.second.show();
+			return true;
 		}
+		else if (a.second.amount == b.second.amount)
+		{
+			return a.first < b.first;
+		}
+		return false;
+	}
+};
+
+void Account::QuaryByDate(Date start, Date end)
+{
+	for (auto record : recordMap)
+	{
+		if (start < record.first && record.first < end)
+		{
+			record.second.show();
+		}
+	}
+}
+
+void Account::QueryByAmount(Date start, Date end)
+{
+	multimap<Date, AccountRecord, cmp> temp;
+	for (auto record : recordMap)
+	{
+		if (start < record.first && record.first < end)
+		{
+			temp.insert(record);
+		}
+	}
+	for (auto record : temp)
+	{
+		record.second.show();
 	}
 }
 

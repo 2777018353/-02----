@@ -1,9 +1,9 @@
 #include "Login.h"
 
-void Login::Init()
+bool Login::Init()
 {
 	ReadInfo();
-	cout << "Please login(l) or register(r).\tcommand>";
+	cout << "Please login(l), register(r) or exit(e).\tcommand>";
 	string command;
 	char cmd;
 	cin >> command;
@@ -11,11 +11,11 @@ void Login::Init()
 	while (command.size() != 1)
 	{
 		RuntimeError::Error(INPUTERRORCOMMAND);
-		cout << "Please login(l) or register(r).\tcommand>";
+		cout << "Please login(l), register(r) or exit(e).\tcommand>";
 		cin >> command;
 	}
 	cmd = command[0];
-	while (cmd != 'l' && cmd != 'r')
+	while (cmd != 'l' && cmd != 'r' && cmd != 'e')
 	{
 		RuntimeError::Error(INPUTNOCOMMAND);
 		cout << "Please login(l) or register(r).\tcommand>";
@@ -34,9 +34,12 @@ void Login::Init()
 	case 'r':
 		Register();
 		break;
+	case 'e':
+		return 0;
 	default:
 		break;
 	}
+	return 1;
 }
 
 bool Login::Signin()

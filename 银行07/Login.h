@@ -20,7 +20,7 @@ public:
 	// get·½·¨
 	string getUserName() { return user_name; }
 
-	void Init();
+	bool Init();
 	bool Signin();
 	void Register();
 	void ReadInfo();

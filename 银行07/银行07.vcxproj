@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Account.txt" />
+    <Text Include="sry_commands.txt" />
     <Text Include="wan_commands.txt" />
     <Text Include="wzy_commands.txt" />
   </ItemGroup>

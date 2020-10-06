@@ -30,13 +30,13 @@
     <ClCompile Include="SavingsAccount.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="step7.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="RuntimeError.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Login.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="step7.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -67,5 +67,6 @@
     <Text Include="Account.txt" />
     <Text Include="wan_commands.txt" />
     <Text Include="wzy_commands.txt" />
+    <Text Include="sry_commands.txt" />
   </ItemGroup>
 </Project>
