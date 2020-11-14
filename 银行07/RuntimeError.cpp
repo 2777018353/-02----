@@ -40,6 +40,8 @@ void RuntimeError::Error(int error_type)
 	case USERNOMATCHPASSWORD:
 		cout << "User name and password do not match." << endl;
 		break;
+	case RATEERROR:
+		cout << "Please input correct rate." << endl;
 	default:
 		break;
 	}

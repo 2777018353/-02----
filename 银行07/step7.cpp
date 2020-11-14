@@ -1,6 +1,4 @@
-﻿//step6.cpp
-
-#include <iostream>
+﻿#include <iostream>
 
 #include <vector>
 
@@ -8,6 +6,7 @@
 
 #include <fstream>
 
+#define NOMINMAX
 #include <Windows.h>
 
 #include "CreditAccount.h"
@@ -29,7 +28,7 @@ struct deleter {
 };
 
 // 恢复历史记录
-void restore(string user_info, Date date, vector<Account*>& accounts);
+void restore(string user_info, Date& date, vector<Account*>& accounts);
 
 // 当前月账户统计
 void AccountStatistics(Account* account);
@@ -108,6 +107,7 @@ int run() {
 		else
 		{
 			RuntimeError::Error(INPUTERRORCOMMAND);
+			cin.ignore(std::numeric_limits<streamsize>::max(), '\n'); // 清空缓冲区输入
 			continue;
 		}
 
@@ -117,15 +117,16 @@ int run() {
 			vector<char>::iterator c(commands.begin());
 			for (; c != commands.end(); c++)
 			{
-				if (*c == cmd)
+				if (*c == cmd && *c != 's' && *c != 'q')
 				{
-					text << cmd << ' ';
+					// text << cmd << ' ';
 					break;
 				}
 			}
 			if (c == commands.end())
 			{
 				RuntimeError::Error(INPUTNOCOMMAND);
+				cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
 				break;
 			}
 
@@ -138,21 +139,32 @@ int run() {
 			cin >> type >> id;
 			if (type == 's' || type == 'c')
 			{
-				text << type << ' ' << id << ' ';
 
 				if (type == 's') {
 
 					cin >> rate;
-					text << rate << '\n' << endl;
 
-					account = new SavingsAccount(date, id, rate);
+					if (rate < 1)
+					{
+						text << cmd << ' ' << type << ' ' << id << ' ' << rate << endl;
+
+						account = new SavingsAccount(date, id, rate);
+					}
+
+					else
+					{
+						RuntimeError::Error(RATEERROR);
+
+						continue;
+					}
 
 				}
 
 				else {
 
 					cin >> credit >> rate >> fee;
-					text << credit << ' ' << rate << ' ' << fee << '\n' << endl;
+
+					text << cmd << ' ' << type << id << ' ' << credit << ' ' << rate << ' ' << fee << endl;
 
 					account = new CreditAccount(date, id, credit, rate, fee);
 
@@ -185,7 +197,7 @@ int run() {
 
 			getline(cin, desc);
 
-			text << amount << desc << '\n' << endl;
+			text << cmd << ' ' << index << ' ' << amount << ' ' << desc << endl;
 
 			accounts[index]->deposit(date, amount, desc);
 
@@ -211,7 +223,7 @@ int run() {
 			// 取钱成功
 			if (accounts[index]->withdraw(date, amount, desc) == true)
 			{
-				text << index << ' ' << amount << ' ' << desc << '\n' << endl;
+				text << cmd << ' ' << index << ' ' << amount << ' ' << desc << endl;
 			}
 
 			break;
@@ -247,24 +259,26 @@ int run() {
 			else
 			{
 				date = Date(date.getYear(), date.getMonth(), day);
-				text << day << '\n' << endl;
+				text << cmd << ' ' << day << endl;
 			}
 			break;
 
 		case 'n'://进入下个月
 
+			text << cmd << endl;
+			
 			if (date.getMonth() == 12)
-
+			{
 				date = Date(date.getYear() + 1, 1, 1);
-
+			}
 			else
-
+			{
 				date = Date(date.getYear(), date.getMonth() + 1, 1);
-
+			}
 			for (vector<Account*>::iterator iter = accounts.begin(); iter != accounts.end(); ++iter)
-
+			{
 				(*iter)->settle(date);
-
+			}
 			break;
 
 		case 'q'://查询一段时间内的账目
@@ -321,7 +335,7 @@ int run() {
 
 }
 
-void restore(string user_info, Date date, vector<Account*>& accounts)
+void restore(string user_info, Date& date, vector<Account*>& accounts)
 {
 	ifstream text(user_info);
 

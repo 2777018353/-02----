@@ -11,11 +11,11 @@ multimap<Date, AccountRecord> recordMap;
 
 void Account::query(Date start, Date end)
 {
-	for (auto key : recordMap)
+	for (auto record : recordMap)
 	{
-		if (start < key.first && key.first < end)
+		if (start < record.first && record.first < end)
 		{
-			key.second.show();
+			record.second.show();
 		}
 	}
 }

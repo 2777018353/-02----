@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{ad48163f-2b0d-4c05-9a01-8c695deb6438}</ProjectGuid>
-    <RootNamespace>银行07</RootNamespace>
+    <ProjectGuid>{a0a0e276-ca9d-4bcb-9b1d-7032db88b93d}</ProjectGuid>
+    <RootNamespace>银行01储蓄账户类的设计</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,31 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Account.cpp" />
-    <ClCompile Include="Accumulator.cpp" />
-    <ClCompile Include="CreditAccount.cpp" />
-    <ClCompile Include="Date.cpp" />
-    <ClCompile Include="Login.cpp" />
-    <ClCompile Include="RuntimeError.cpp" />
-    <ClCompile Include="SavingsAccount.cpp" />
-    <ClCompile Include="step7.cpp" />
+    <ClCompile Include="account.cpp" />
+    <ClCompile Include="step_1.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Account.h" />
-    <ClInclude Include="Accumulator.h" />
-    <ClInclude Include="CreditAccount.h" />
-    <ClInclude Include="Date.h" />
-    <ClInclude Include="Login.h" />
-    <ClInclude Include="RuntimeError.h" />
-    <ClInclude Include="SavingsAccount.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Account.txt" />
-    <Text Include="wan_commands.txt" />
-    <Text Include="wzy_commands.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <ClInclude Include="account.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

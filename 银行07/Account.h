@@ -9,11 +9,11 @@
 
 extern double total;
 
-class Account
+class Account // 建立账户类
 {
 private:
-	string id;
-	double balance;
+	string id;			// 用户id
+	double balance;		// 账户余额
 
 public:
 	// 构造函数(参数 id)
@@ -34,6 +34,7 @@ public:
 	// 在指定时间段内按金额大小查询
 	static void QueryByAmount(Date start, Date end);
 
+	// 虚函数
 	virtual void record(Date date, double amount, string desc = "interest") = 0;
 	virtual void deposit(Date date, double amount, string desc) = 0;
 	virtual bool withdraw(Date date, double amount, string desc) = 0;
@@ -41,10 +42,11 @@ public:
 	virtual void show();
 	virtual void RepaymentReminder() = 0;
 
+	// 获取所有账户总金额
 	static double getTotal() { return total; }
 };
 
-class AccountRecord				// 账目记录
+class AccountRecord				// 建立账目记录类
 {
 public:
 	Date date;					// 日期
@@ -54,11 +56,15 @@ public:
 	std::string desc;			// 描述
 
 public:
+	// 构造函数
 	AccountRecord(Date date, Account* account, double amount, double balance, std::string desc);
 
+	// get方法
 	Account* getAccount() { return account; }
 	Date getDate() { return date; }
 	double getAmount() { return amount; }
+
+	// 格式化输出
 	void show();
 };
 

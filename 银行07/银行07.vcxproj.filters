@@ -68,4 +68,7 @@
     <Text Include="wan_commands.txt" />
     <Text Include="wzy_commands.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
 </Project>

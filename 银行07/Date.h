@@ -2,15 +2,16 @@
 #include <iostream>
 using namespace std;
 
-class Date
+class Date			// 建立日期类
 {
 private:
-	int year;
-	int month;
-	int day;
-	int totalDays;
+	int year;		// 年
+	int month;		// 月
+	int day;		// 日
+	int totalDays;	// 总天数
 
 public:
+	// 构造函数
 	Date() :year(0), month(0), day(0) { totalDays = 0; };
 	Date(int year, int month, int day) :year(year), month(month), day(day)
 	{
