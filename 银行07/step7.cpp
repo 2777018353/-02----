@@ -328,8 +328,9 @@ int run() {
 
 	} while (cmd != 'e');
 
-
 	for_each(accounts.begin(), accounts.end(), deleter());
+
+	total = 0;
 
 	return 1;
 

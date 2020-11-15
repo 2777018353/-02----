@@ -12,13 +12,15 @@ bool Login::Init()
 	{
 		RuntimeError::Error(INPUTERRORCOMMAND);
 		cout << "Please login(l), register(r) or exit(e).\tcommand>";
+		cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
 		cin >> command;
 	}
 	cmd = command[0];
 	while (cmd != 'l' && cmd != 'r' && cmd != 'e')
 	{
 		RuntimeError::Error(INPUTNOCOMMAND);
-		cout << "Please login(l) or register(r).\tcommand>";
+		cout << "Please login(l), register(r) or exit(e).\tcommand>";
+		cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
 		cin >> cmd;
 	}
 	switch (cmd)
